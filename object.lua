@@ -11,16 +11,21 @@ function o.newObject(xP, yP, spriteP, inputP)
   return setmetatable({
     x = xP or 0, y = yP or 0,
     sprite = spriteP,
-    input = inputP
+    input = inputP,
+    inFun = {}
   }, {__index = oft})
 end
 
 function oft:update(dt) -- page input
-  -- update location, probably deal with extensibility
+  take = input:page(input.real)
+  -- for each function in the objin table, check if
+  -- it's true in {take} and run it with dt as a param
 end
 
 function oft:draw()
   this.sprite:draw(x, y)
 end
+
+-- implement: a table of functions to search @ page time
 
 return o
