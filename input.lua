@@ -4,9 +4,9 @@
 i = {}
 ift = {} -- input function table
 
-function i.newInput(realP)
+function i.newInput(typeP)
   return setmetatable({
-    real = realP,
+    type = typeP,
     keyboard = {}, -- real inputs (love.keyboard.isdown)
     joystick = {}, -- real inputs (love.joystick.blah)
     mouse = {}, -- real inputs (love.mouse.blah)
@@ -21,8 +21,9 @@ function ift:addSource(typeP, nameP, inputP)
 end
 
 -- updates output table
-function ift:page(realP)
-  if realP then
+function ift:page(typeP)
+  local out = {}
+  if typeP == 'real' then
     for k, v in pairs(self.keyboard) do
       out[k] = love.keyboard.isDown(v)
     end

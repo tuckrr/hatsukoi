@@ -7,23 +7,38 @@
 o = {}
 local oft = {} -- object function table
 
-function o.newObject(xP, yP, spriteP, inputP)
+function o.newObject(spriteP, inputP, xP, yP)
   return setmetatable({
     x = xP or 0, y = yP or 0,
     sprite = spriteP,
     input = inputP,
-    inFun = {}
+    actions = {}
   }, {__index = oft})
 end
 
-function oft:update(dt) -- page input
-  take = input:page(input.real)
-  -- for each function in the objin table, check if
-  -- it's true in {take} and run it with dt as a param
+function oft:update(dt)
+  -- page input
+  local take = self.input:page(self.input.type)
+  for k, v in pairs(self.actions) do
+    if take[k] then
+      if take[k] == true then
+        self.actions[k](self, dt)
+      else
+        self.actions[k](self, dt, take[k])
+      end -- specifics of take
+    end -- if take
+  end -- for @ input
+
+  self.sprite:update(dt)
+
+end -- update fn
+
+function oft:setActionTable(t)
+  self.actions = t
 end
 
 function oft:draw()
-  this.sprite:draw(x, y)
+  self.sprite:draw(self.x, self.y)
 end
 
 -- implement: a table of functions to search @ page time
