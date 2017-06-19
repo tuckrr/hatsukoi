@@ -4,7 +4,7 @@
 -- an animation is a table of frames
 -- a frame is a quad on the sprite sheet
 
--- todo : batch addFrame, possibly clean up update
+-- todo : batch addFrame, probably clean up update
 
 
 s = {}
