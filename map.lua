@@ -23,27 +23,66 @@ function m.newMap(widthP, heightP, tileWidthP, tileHeightP)
   }, {__index = mft})
 end
 
-function mft:setLocation(xP, yP)
-  -- handle entities, tile, and more -.-
+function mft:addObject(objectP, xP, yP, pixelConversionP)
+  -- put an object on the map, give it an instance number
 end
---[[
-todo:
-primary functionality
-  mft.setLocation
-  mft.getLocation
-  mft.init
-  mft.update
-  mft.draw
-  m.newTileSet
-  tft.addTile
 
-secondary
-  mft.loadFile (the real meat)
-  mft.writeFile (for editing)
-  tft.addTileBatch
-  tft.addAniTile
-  tft.addAniTileBatch
-  tft.update
-]]
+function mft:getObjectLocation(objectP, instanceP, guessxP, guessyP)
+  -- find out where on the map an instance is
+end
+
+function mft:setLocationTile(xP, yP, pixelConversionP)
+  -- handle tiles
+end
+
+function mft:getLocation(xP, yP, pixelConversionP)
+  -- return a table containing data about the location
+end
+
+function mft:init()
+  -- load the entities, tiles in the map and shit
+end
+
+function mft:update()
+  -- update animated tiles, entities on the map
+end
+
+function mft:draw()
+  -- draw each tile in the section being drawn, with params from cam
+  -- draw each object on the map
+end
+
+function m.loadMapFile() -- the primary way to write a map: koibumi
+  -- loads in from a text based map
+end
+
+function m.exportMapFile() -- for editor use
+  -- exports a text based map
+end
+---------------------------------------------------------------
+
+function m.newTileSet()
+  -- tilesets hold tiles
+end
+
+function tft:addTile()
+  -- which are quads, but also have some basic collision data
+end
+
+function tft:addTileBatch()
+  -- and can be added lots at the same time
+end
+
+function tft:addAniTile()
+  -- they can also be animated
+end
+
+function tft:addAniTileBatch()
+  -- again, batches!
+end
+
+function tft:update()
+  -- and the whole tileset updates at once
+end
 
 return m
