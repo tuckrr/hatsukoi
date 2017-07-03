@@ -7,9 +7,12 @@ local mft = {}
 local tft = {}
 
 function m.newMap(widthP, heightP, tileWidthP, tileHeightP)
-  tempMap = {}
+  local tempMap = {}
   for i = 1, widthP do
     tempMap[i] = {}
+    for j = 1, heightP do
+      tempMap[i][j] = {}
+    end
   end
   return setmetatable({
     width = widthP, height = heightP,
@@ -19,12 +22,22 @@ function m.newMap(widthP, heightP, tileWidthP, tileHeightP)
     tileHeight = tileHeightP,
     streaming = false, -- level streaming/chunk based system. tbd exactsies
     tilesets = {},
+    instances = {},
     map = tempMap
   }, {__index = mft})
 end
 
 function mft:addObject(objectP, xP, yP, pixelConversionP)
-  -- put an object on the map, give it an instance number
+  if xP and yP then
+    if not pixelConversionP then
+      xP = xP * self.tileWidthP
+      yP = yP * self.tileHeightP
+    end
+    objectP.x = xP
+    objectP.y = yP
+  end
+
+  self.instances[#self.instances + 1] = objectP
 end
 
 function mft:getObjectLocation(objectP, instanceP, guessxP, guessyP)
