@@ -2,6 +2,9 @@
 -- a map is a grid of tiles and objects
 -- also contains tile definitions because they only get used in map
 
+-- map really is kind of a mess. i didn't really plan this/obj out too well in
+-- how they interact. going to go with a different system for koi++
+
 m = {}
 local mft = {}
 local tft = {}
@@ -33,36 +36,42 @@ function mft:addObject(objectP, xP, yP, pixelConversionP)
       xP = xP * self.tileWidthP
       yP = yP * self.tileHeightP
     end
-    objectP.x = xP
-    objectP.y = yP
   end
 
-  self.instances[#self.instances + 1] = objectP
+  self.instances[#self.instances + 1] = {obj = objectP, x = xP, y = yP}
 end
 
-function mft:getObjectLocation(objectP, instanceP, guessxP, guessyP)
-  -- find out where on the map an instance is
+function mft:getObject(instanceP, objectP, guessxP, guessyP)
+  if instanceP then
+    return self.instances[instanceP]
+  end
+  closestDistance = self.widthP + self.heightP
+  ret = nil
+  for i, v in ipairs(self.instances) do
+    if v.obj == objectP then
+      myDist = math.sqrt(math.pow(guessxP - v.x, 2) + math.pow(guessyP - v.y, 2))
+      if myDist < closestDistance then
+        closestDistance = myDist
+        ret = v
+      end
+    end
+  end
+  return ret
 end
 
-function mft:setLocationTile(xP, yP, pixelConversionP)
-  -- handle tiles
-end
-
-function mft:getLocation(xP, yP, pixelConversionP)
-  -- return a table containing data about the location
-end
-
-function mft:init()
-  -- load the entities, tiles in the map and shit
-end
-
-function mft:update()
+function mft:update(dt)
   -- update animated tiles, entities on the map
+  for i, v in ipairs(self.instances) do
+    v.obj.update(dt)
+  end
 end
 
-function mft:draw()
+function mft:drawTiles(drawRectP, drawToCoordP, xScaleP, yScaleP)
   -- draw each tile in the section being drawn, with params from cam
-  -- draw each object on the map
+end
+
+function mft:drawObjects(scaleP)
+    -- draw each object on the map
 end
 
 function m.loadMapFile() -- the primary way to write a map: koibumi

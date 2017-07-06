@@ -7,12 +7,15 @@ return {
   object = require 'koi.object',
   input = require 'koi.input',
   map = require 'koi.map',
-  camera = require 'koi.camera',
-  logic = require 'koi.logic',
-  editor = require 'koi.editor',
+  --camera = require 'koi.camera',
+  --logic = require 'koi.logic',
+  --editor = require 'koi.editor',
   ui = require 'koi.ui'
 }
 
+-- koi prototype
+-- just a place to be able to start making tiny games w/ love
+-- useful for game jams/small projects while developing koi in c++
 
 --[[
 Koi priorities/order:

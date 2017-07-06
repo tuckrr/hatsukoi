@@ -6,6 +6,7 @@
 
 -- todo : batch addFrame, probably clean up update
 
+-- note: koi.sprite is feature complete. all future additions are qol changes
 
 s = {}
 local sft = {} -- sprite function table
