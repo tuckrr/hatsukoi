@@ -5,7 +5,7 @@
 return {
   sprite = require 'koi.sprite',
   object = require 'koi.object',
-  input = require 'koi.input',
+  input = require 'koi.input', -- not sure if this gets wiped in prototype
   map = require 'koi.map',
   --camera = require 'koi.camera',
   --logic = require 'koi.logic',
