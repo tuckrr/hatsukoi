@@ -7,7 +7,8 @@
 
 m = {}
 local mft = {}
-local tft = {}
+local tsft = {}
+local tift = {}
 
 function m.newMap(widthP, heightP, tileWidthP, tileHeightP)
   local tempMap = {}
@@ -21,6 +22,7 @@ function m.newMap(widthP, heightP, tileWidthP, tileHeightP)
     width = widthP, height = heightP,
     widthPx = widthP * tileWidthP,
     heightPx = heightP * tileHeightP,
+    drawOffsetX = 0, drawOffsetY = 0,
     tileWidth = tileWidthP,
     tileHeight = tileHeightP,
     streaming = false, -- level streaming/chunk based system. tbd exactsies
@@ -33,12 +35,14 @@ end
 function mft:addObject(objectP, xP, yP, pixelConversionP)
   if xP and yP then
     if not pixelConversionP then
-      xP = xP * self.tileWidthP
-      yP = yP * self.tileHeightP
+      xP = xP * self.tileWidth
+      yP = yP * self.tileHeight
     end
   end
 
-  self.instances[#self.instances + 1] = {obj = objectP, x = xP, y = yP}
+  self.instances[#self.instances + 1] = objectP
+  self.instances[#self.instances].x = xP
+  self.instances[#self.instances].y = yP
 end
 
 function mft:getObject(instanceP, objectP, guessxP, guessyP)
@@ -48,7 +52,7 @@ function mft:getObject(instanceP, objectP, guessxP, guessyP)
   closestDistance = self.widthP + self.heightP
   ret = nil
   for i, v in ipairs(self.instances) do
-    if v.obj == objectP then
+    if v == objectP then
       myDist = math.sqrt(math.pow(guessxP - v.x, 2) + math.pow(guessyP - v.y, 2))
       if myDist < closestDistance then
         closestDistance = myDist
@@ -62,16 +66,27 @@ end
 function mft:update(dt)
   -- update animated tiles, entities on the map
   for i, v in ipairs(self.instances) do
-    v.obj.update(dt)
+    v:update(dt)
   end
 end
 
 function mft:drawTiles(drawRectP, drawToCoordP, xScaleP, yScaleP)
-  -- draw each tile in the section being drawn, with params from cam
+  for indexX, valueX in ipairs(self.map) do
+    for indexY, valueY in ipairs(valueX) do
+      valueY:draw(((indexX - 1) * self.tileWidth) - self.drawOffsetX,
+                 ((indexY - 1) * self.tileHeight) - self.drawOffsetY)
+    end
+  end
 end
 
-function mft:drawObjects(scaleP)
-    -- draw each object on the map
+function mft:drawObjects()
+    for i, v in ipairs(self.instances) do
+      v:draw(self.drawOffsetX, self.drawOffsetY)
+    end
+end
+
+function mft:setTile(x, y)
+
 end
 
 function m.loadMapFile() -- the primary way to write a map: koibumi
@@ -81,29 +96,36 @@ end
 function m.exportMapFile() -- for editor use
   -- exports a text based map
 end
+
 ---------------------------------------------------------------
 
 function m.newTileSet()
   -- tilesets hold tiles
 end
 
-function tft:addTile()
+function tsft:addTile()
   -- which are quads, but also have some basic collision data
 end
 
-function tft:addTileBatch()
+function tift:draw(x, y)
+  -- draw the tile
+end
+
+----------------------------------------------------------------
+
+function tsft:addTileBatch()
   -- and can be added lots at the same time
 end
 
-function tft:addAniTile()
+function tsft:addAniTile()
   -- they can also be animated
 end
 
-function tft:addAniTileBatch()
+function tsft:addAniTileBatch()
   -- again, batches!
 end
 
-function tft:update()
+function tsft:update()
   -- and the whole tileset updates at once
 end
 
