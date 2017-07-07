@@ -9,8 +9,7 @@ local oft = {} -- object function table
 
 function o.newObject(spriteP, inputP, xP, yP)
   return setmetatable({
-    mapX = xP or 0, mapY = yP or 0,
-    screenX = xP or 0, screenY = yP or 0,
+    x = xP or 0, y = yP or 0,
     sprite = spriteP,
     input = inputP,
     actions = {}
@@ -38,8 +37,10 @@ function oft:setActionTable(t)
   self.actions = t
 end
 
-function oft:draw()
-  self.sprite:draw(self.screenX, self.screenY)
+function oft:draw(offsetXP, offsetYP)
+  offsetXP = offsetXP or 0
+  offsetYP = offsetYP or 0
+  self.sprite:draw(self.x - offsetXP, self.y - offsetYP)
 end
 
 -- implement: a table of functions to search @ page time
