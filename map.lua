@@ -8,7 +8,6 @@
 m = {}
 local mft = {}
 local tsft = {}
-local tift = {}
 
 function m.newMap(widthP, heightP, tileWidthP, tileHeightP)
   local tempMap = {}
@@ -26,7 +25,7 @@ function m.newMap(widthP, heightP, tileWidthP, tileHeightP)
     tileWidth = tileWidthP,
     tileHeight = tileHeightP,
     streaming = false, -- level streaming/chunk based system. tbd exactsies
-    tilesets = {},
+    tileset = {},
     instances = {},
     map = tempMap
   }, {__index = mft})
@@ -73,8 +72,9 @@ end
 function mft:drawTiles(drawRectP, drawToCoordP, xScaleP, yScaleP)
   for indexX, valueX in ipairs(self.map) do
     for indexY, valueY in ipairs(valueX) do
-      valueY:draw(((indexX - 1) * self.tileWidth) - self.drawOffsetX,
-                 ((indexY - 1) * self.tileHeight) - self.drawOffsetY)
+      self.tileset:draw(valueY,
+                        ((indexX - 1) * self.tileWidth) - self.drawOffsetX,
+                        ((indexY - 1) * self.tileHeight) - self.drawOffsetY)
     end
   end
 end
@@ -85,46 +85,38 @@ function mft:drawObjects()
     end
 end
 
-function mft:setTile(x, y)
-
-end
-
-function m.loadMapFile() -- the primary way to write a map: koibumi
-  -- loads in from a text based map
-end
-
-function m.exportMapFile() -- for editor use
-  -- exports a text based map
-end
-
 ---------------------------------------------------------------
 
-function m.newTileSet()
-  -- tilesets hold tiles
+function m.newTileSet(imgP, tileWidthP, tileHeightP)
+  local img = love.graphics.newImage(imgP)
+  return setmetatable({
+    tilesetSheet = img,
+    tilesetWidth = img:getWidth(),
+    tilesetHeight = img:getHeight(),
+    tilesetTileWidth = tileWidthP or 32,
+    tilesetTileHeight = tileHeightP or 32,
+    tiles = {}
+  }, {__index = tsft})
 end
 
-function tsft:addTile()
-  -- which are quads, but also have some basic collision data
+function tsft:addTile(nameP, xP, yP)
+  self.tiles[nameP] = love.graphics.newQuad(xP, yP,
+                                            self.tilesetTileWidth,
+                                            self.tilesetTileHeight,
+                                            self.tilesetWidth,
+                                            self.tilesetHeight)
 end
 
-function tift:draw(x, y)
-  -- draw the tile
+function tsft:draw(tileP, xP, yP)
+  love.graphics.draw(self.tilesetSheet, self[tileP], xP, yP)
 end
 
 ----------------------------------------------------------------
 
-function tsft:addTileBatch()
-  -- and can be added lots at the same time
-end
-
 function tsft:addAniTile()
   -- they can also be animated
 end
-
-function tsft:addAniTileBatch()
-  -- again, batches!
-end
-
+-- (these two go together)
 function tsft:update()
   -- and the whole tileset updates at once
 end
