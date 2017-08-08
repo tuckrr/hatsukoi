@@ -12,4 +12,3 @@ This is a tiny personal project born out of a curiosity, and shouldn't be seen a
 # Planned functionality
 * Simple UI tools
 * Standard library of functions for classic game types + systems
-* Import maps from (simpler) files
