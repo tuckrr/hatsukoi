@@ -11,7 +11,7 @@ function i.newInput(typeP)
     joystick = {}, -- real inputs (love.joystick.blah)
     mouse = {}, -- real inputs (love.mouse.blah)
     virtual = {}, -- fake inputs (true/false from ?? koibumi ??)
-    out = {} -- updated with page, the status on each input
+    out = {} -- updated with poll, the status on each input
   }, {__index = ift})
 end
 
@@ -21,7 +21,7 @@ function ift:addSource(typeP, nameP, inputP)
 end
 
 -- updates output table
-function ift:page(typeP)
+function ift:poll(typeP)
   local out = {}
   if typeP == 'real' then
     for k, v in pairs(self.keyboard) do
@@ -38,6 +38,6 @@ function ift:page(typeP)
     end
   end
   return out
-end -- page
+end -- poll
 
 return i
