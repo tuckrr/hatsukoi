@@ -17,8 +17,8 @@ function o.newObject(spriteP, inputP, xP, yP)
 end
 
 function oft:update(dt)
-  -- page input
-  local take = self.input:page(self.input.type)
+  -- poll input
+  local take = self.input:poll(self.input.type)
   for k, v in pairs(self.actions) do
     if take[k] then
       if take[k] == true then
@@ -43,6 +43,6 @@ function oft:draw(offsetXP, offsetYP)
   self.sprite:draw(self.x - offsetXP, self.y - offsetYP)
 end
 
--- implement: a table of functions to search @ page time
+-- implement: a table of functions to search @ poll time
 
 return o
