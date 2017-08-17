@@ -87,9 +87,9 @@ end
 
 ---------------------------------------------------------------
 
-function m.newTileSet(imgP, tileWidthP, tileHeightP)
+function m:newTileSet(imgP, tileWidthP, tileHeightP)
   local img = love.graphics.newImage(imgP)
-  return setmetatable({
+  self.tileset = setmetatable({
     tilesetSheet = img,
     tilesetWidth = img:getWidth(),
     tilesetHeight = img:getHeight(),
@@ -97,6 +97,7 @@ function m.newTileSet(imgP, tileWidthP, tileHeightP)
     tilesetTileHeight = tileHeightP or 32,
     tiles = {}
   }, {__index = tsft})
+  return self.tileset;
 end
 
 function tsft:addTile(nameP, xP, yP)
