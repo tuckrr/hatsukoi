@@ -70,9 +70,9 @@ function mft:update(dt)
 end
 
 function mft:drawTiles(drawRectP, drawToCoordP, xScaleP, yScaleP)
-  for indexX, valueX in ipairs(self.map) do
-    for indexY, valueY in ipairs(valueX) do
-      self.tileset:draw(valueY,
+  for indexY, valueY in ipairs(self.map) do
+    for indexX, valueX in ipairs(valueY) do
+      self.tileset:draw(valueX,
                         ((indexX - 1) * self.tileWidth) - self.drawOffsetX,
                         ((indexY - 1) * self.tileHeight) - self.drawOffsetY)
     end
@@ -87,7 +87,7 @@ end
 
 ---------------------------------------------------------------
 
-function m:newTileSet(imgP, tileWidthP, tileHeightP)
+function m:newTileset(imgP, tileWidthP, tileHeightP)
   local img = love.graphics.newImage(imgP)
   self.tileset = setmetatable({
     tilesetSheet = img,
@@ -109,7 +109,7 @@ function tsft:addTile(nameP, xP, yP)
 end
 
 function tsft:draw(tileP, xP, yP)
-  love.graphics.draw(self.tilesetSheet, self[tileP], xP, yP)
+  love.graphics.draw(self.tilesetSheet, self.tiles[tileP], xP, yP)
 end
 
 ----------------------------------------------------------------
