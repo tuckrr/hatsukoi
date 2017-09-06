@@ -28,16 +28,16 @@ function s.newSprite(imgP, wP, hP, animSpeedP, defaultAnimP)
 	}, {__index = sft})
 end
 
-function sft:addAnimation(name)
-	if not self.animations[name] then
-		self.animations[name] = {}
+function sft:addAnimation(nameP)
+	if not self.animations[nameP] then
+		self.animations[nameP] = {}
 	end
-	return self.animations[name]
+	return self.animations[nameP]
 end
 
-function sft:addFrame(anim, x, y)
-	self.animations[anim][#self.animations[anim] + 1] = love.graphics.newQuad(x, y, self.width, self.height, self.spriteSheet:getWidth(), self.spriteSheet:getHeight())
-	return #self.animations[anim]
+function sft:addFrame(animP, xP, yP)
+	self.animations[animP][#self.animations[animP] + 1] = love.graphics.newQuad(xP, yP, self.width, self.height, self.spriteSheet:getWidth(), self.spriteSheet:getHeight())
+	return #self.animations[animP]
 end
 
 function sft:setCurrentAnimation(anim, loop)
