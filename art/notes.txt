@@ -1,0 +1,4 @@
+Art referenced in examples, but not made by me:
+link_ladx.png : https://www.spriters-resource.com/game_boy_gbc/thelegendofzeldalinksawakeningdx/sheet/9436/
+  NOTE: This sheet's background color needs to be replaced with transparency.
+ladx_owtiles.png : https://www.spriters-resource.com/game_boy_gbc/thelegendofzeldalinksawakeningdx/sheet/9445/
