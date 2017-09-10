@@ -2,9 +2,6 @@
 -- a map is a grid of tiles and objects
 -- also contains tile definitions because they only get used in map
 
--- map really is kind of a mess. i didn't really plan this/obj out too well in
--- how they interact. going to go with a different system for koi++
-
 m = {}
 local mft = {}
 local tsft = {}
@@ -113,6 +110,8 @@ function tsft:draw(tileP, xP, yP)
 end
 
 ----------------------------------------------------------------
+--[[
+todo: adapt sprite methods into animated tiles
 
 function tsft:addAniTile()
   -- they can also be animated
@@ -121,5 +120,6 @@ end
 function tsft:update()
   -- and the whole tileset updates at once
 end
+]]
 
 return m
