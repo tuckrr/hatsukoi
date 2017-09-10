@@ -14,5 +14,4 @@ This is a tiny personal project born out of a curiosity, and shouldn't be seen a
 * Standard library of functions for classic game types + systems
 
 # todo
-* Restructure repo into /koi, /examples, etc.
-* Add examples to repo
+* Feature out Link's Awakening adaptation/example
