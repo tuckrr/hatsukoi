@@ -13,7 +13,7 @@ function love.update(dt) -- update
 end
 
 function love.draw() -- draw
-	love.graphics.scale(4)
+	love.graphics.scale(map.drawScale)
 	map:drawTiles()
 	map:drawObjects()
 	interface:draw()

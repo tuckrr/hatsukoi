@@ -6,7 +6,7 @@ m = {}
 local mft = {}
 local tsft = {}
 
-function m.newMap(widthP, heightP, tileWidthP, tileHeightP)
+function m.newMap(widthP, heightP, tileWidthP, tileHeightP, drawScaleP)
   local tempMap = {}
   for i = 1, widthP do
     tempMap[i] = {}
@@ -19,6 +19,7 @@ function m.newMap(widthP, heightP, tileWidthP, tileHeightP)
     widthPx = widthP * tileWidthP,
     heightPx = heightP * tileHeightP,
     drawOffsetX = 0, drawOffsetY = 0,
+    drawScale = drawScaleP or 1,
     tileWidth = tileWidthP,
     tileHeight = tileHeightP,
     streaming = false, -- level streaming/chunk based system. tbd exactsies

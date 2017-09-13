@@ -52,7 +52,7 @@ objPlayer:setActionTable({
 -- END OF PLAYER OBJECT
 
 -- MAP DEFINITION
-mapOW = koi.map.newMap(32, 32, 16, 16)
+mapOW = koi.map.newMap(32, 32, 16, 16, 4)
 mapOW.tileset = koi.map:newTileset('art/ladx_owtiles.png', 16, 16)
 mapOW.tileset:addTile('grass top left', 1, 86)
 mapOW.tileset:addTile('grass top', 18, 86)
