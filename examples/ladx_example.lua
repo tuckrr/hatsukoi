@@ -50,6 +50,15 @@ objPlayer:setActionTable({
   end
 })
 -- END OF PLAYER OBJECT
+sprArrow = koi.sprite.newSprite('art/arrow.png', 16, 16)
+sprArrow:addAnimation('static')
+sprArrow:addFrame('static', 0, 0)
+inpBool = koi.input.newInput('virtual')
+inpBool:addSource('virtual', 'true', true)
+inpBool:addSource('virtual', 'false', false)
+objCenter = koi.object.newObject(sprArrow)
+
+
 
 -- MAP DEFINITION
 mapOW = koi.map.newMap(32, 32, 16, 16, 4)
@@ -115,7 +124,8 @@ mapOW.map = {
 mapOW:addObject(objPlayer, 5, 5)
 
 function mapOW:lerpTowards(targetXP, targetYP, speedP)
- -- todo: lerp the screen towards an object
+  self.drawOffsetX = self.drawOffsetX + 1
+  self.drawOffsetY = self.drawOffsetY + 1
 end
 
 return mapOW
