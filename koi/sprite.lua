@@ -28,9 +28,9 @@ function s.newSprite(imgP, wP, hP, animSpeedP, defaultAnimP)
 	}, {__index = sft})
 end
 
-function sft:addAnimation(nameP)
+function sft:addAnimation(nameP, sxP, syP)
 	if not self.animations[nameP] then
-		self.animations[nameP] = {}
+		self.animations[nameP] = {sx = sxP or 1, sy = syP or 1}
 	end
 	return self.animations[nameP]
 end
@@ -40,14 +40,14 @@ function sft:addFrame(animP, xP, yP)
 	return #self.animations[animP]
 end
 
-function sft:setCurrentAnimation(anim, loop)
-	if not (self.currentAnimation == anim) then
-		if loop or loop == nil then
+function sft:setCurrentAnimation(animP, loopP)
+	if not (self.currentAnimation == animP) then
+		if loopP or loopP == nil then
 			self.loop = true
 		else
 			self.loop = false
 		end
-		self.currentAnimation = anim
+		self.currentAnimation = animP
 		self.currentFrame = 1
 	end
 end
@@ -68,8 +68,8 @@ function sft:update(dt)
 	end
 end
 
-function sft:draw(x, y)
-	love.graphics.draw(self.spriteSheet, self.animations[self.currentAnimation][self.currentFrame], x, y, self.r, self.sx, self.sy, self.ox, self.oy, self.kx, self.ky)
+function sft:draw(xP, yP)
+	love.graphics.draw(self.spriteSheet, self.animations[self.currentAnimation][self.currentFrame], xP, yP, self.r, self.sx * self.animations[self.currentAnimation].sx, self.sy * self.animations[self.currentAnimation].sy, self.ox, self.oy, self.kx, self.ky)
 end
 
 return s
