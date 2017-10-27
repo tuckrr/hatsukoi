@@ -5,13 +5,10 @@
 return {
   sprite = require 'koi.sprite',
   object = require 'koi.object',
-  input = require 'koi.input', -- not sure if this gets wiped in prototype
+  input = require 'koi.input',
   map = require 'koi.map',
-  ui = require 'koi.ui'
-  -- , camera = require 'koi.camera',
-  -- logic = require 'koi.logic',
-  -- editor = require 'koi.editor',
-  -- audio = require 'koi.audio'
+  ui = require 'koi.ui',
+  std = {collide = require "koi.std.ui"}
 }
 
 -- koi prototype (hatsukoi)

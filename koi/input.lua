@@ -4,7 +4,7 @@
 i = {}
 ift = {} -- input function table
 
-function i.newInput(typeP)
+function i.newInput()
   return setmetatable({
     type = typeP,
     keyboard = {}, -- real inputs (love.keyboard.isdown)
@@ -15,7 +15,7 @@ function i.newInput(typeP)
   }, {__index = ift})
 end
 
-function ift:addSource(typeP, nameP, inputP)
+function ift:addSource(typeP, nameP, inputP) -- add multiple inputs to one name
   self[typeP][nameP] = inputP
   self.out[nameP] = false
 end
